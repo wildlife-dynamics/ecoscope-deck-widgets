@@ -4,10 +4,10 @@ module.exports = [
     entry: './src/index.ts',
     output: {
       filename: './bundle.js',
-      library: 'NAWidget',        // This creates window.NAWidget
-      libraryTarget: 'umd',       // Universal Module Definition
-      globalObject: 'this',       // Ensures it works in different environments
-      umdNamedDefine: true        // Helps with AMD loaders
+      library: 'ecoscopeDeckWidgets',
+      libraryTarget: 'umd',
+      globalObject: 'this',
+      umdNamedDefine: true
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],

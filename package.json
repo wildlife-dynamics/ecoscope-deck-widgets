@@ -1,25 +1,20 @@
 {
-  "name": "na-widget",
-  "version": "1.0.0",
+  "name": "@ecoscope/ecoscope-deck-widgets",
+  "version": "0.0.1",
   "type": "module",
-  "description": "",
+  "description": "Custom deck.gl widgets used by ecoscope",
   "main": "index.ts",
   "scripts": {
-    "build": "rm -rf ./dist && mkdir dist && rollup -c rollup.config.js",
     "build-webpack": "rm -rf ./dist && mkdir dist && webpack"
   },
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/dist.cjs",
-    "default": "./dist/dist.es.mjs"
+    ".": "./dist/bundle.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "preact": "^10.26.9",
-    "ts-loader": "^9.5.2",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "ts-loader": "^9.5.2"
   },
   "peerDependencies": {
     "@deck.gl/core": "^9.1.7",
@@ -28,7 +23,14 @@
   "devDependencies": {
     "@deck.gl/core": "^9.1.7",
     "@deck.gl/widgets": "^9.1.7",
-    "@rollup/plugin-typescript": "^12.1.3",
     "webpack-cli": "^6.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildlife-dynamics/ecoscope-deck-widgets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wildlife-dynamics/ecoscope-deck-widgets/issues"
+  },
+  "homepage": "https://github.com/wildlife-dynamics/ecoscope-deck-widgets#readme"
 }
