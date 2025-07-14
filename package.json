@@ -5,14 +5,10 @@
   "description": "Custom deck.gl widgets used by ecoscope",
   "main": "index.ts",
   "scripts": {
-    "build": "rm -rf ./dist && mkdir dist && rollup -c rollup.config.js",
     "build-webpack": "rm -rf ./dist && mkdir dist && webpack"
   },
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/dist.cjs",
-    "default": "./dist/dist.es.mjs"
+    ".": "./dist/bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,7 +24,6 @@
   "devDependencies": {
     "@deck.gl/core": "^9.1.7",
     "@deck.gl/widgets": "^9.1.7",
-    "@rollup/plugin-typescript": "^12.1.3",
     "webpack-cli": "^6.0.1"
   },
   "repository": {
