@@ -11,11 +11,10 @@
     ".": "./dist/bundle.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "preact": "^10.26.9",
-    "ts-loader": "^9.5.2",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "ts-loader": "^9.5.2"
   },
   "peerDependencies": {
     "@deck.gl/core": "^9.1.7",
