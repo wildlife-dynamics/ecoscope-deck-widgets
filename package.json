@@ -10,6 +10,10 @@
   "exports": {
     ".": "./dist/bundle.js"
   },
+  "files":[
+    "src",
+    "dist"
+  ],
   "author": "",
   "license": "BSD-3-Clause",
   "dependencies": {
