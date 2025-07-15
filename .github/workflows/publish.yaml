@@ -1,7 +1,7 @@
 name: Build & Publish Package
 on:
-  release:
-    types: [published]
+  pull_request:
+    branches: [ "**" ]
 
 jobs:
   build:
@@ -17,6 +17,4 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build-webpack
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish --access public --dry-run
