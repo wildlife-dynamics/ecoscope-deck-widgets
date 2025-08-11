@@ -2,8 +2,8 @@ import {
   Deck,
   Widget,
   WidgetPlacement,
-} from "@deck.gl/core";
-import { toPng } from "html-to-image";
+} from '@deck.gl/core';
+import { toPng } from 'html-to-image';
 import {render} from 'preact';
 
 interface SaveImageWidgetProps {
@@ -15,25 +15,25 @@ interface SaveImageWidgetProps {
 }
 
 export default class SaveImageWidget implements Widget<SaveImageWidgetProps> {
-  id = "save-image";
+  id = 'save-image';
   props: SaveImageWidgetProps;
-  placement: WidgetPlacement = "top-right";
+  placement: WidgetPlacement = 'top-right';
   viewId?: string | null = null;
   deck?: Deck<any>;
   element?: HTMLDivElement;
 
   constructor(props: SaveImageWidgetProps) {
-    this.id = props.id ?? "save-image";
-    this.placement = props.placement ?? "top-right";
-    props.label = props.label ?? "Save as Image";
+    this.id = props.id ?? 'save-image';
+    this.placement = props.placement ?? 'top-right';
+    props.label = props.label ?? 'Save as Image';
     props.style = props.style ?? {};
     this.props = {...props};
   }
 
   onAdd({ deck }: { deck: Deck<any> }): HTMLDivElement {
     const { style, className } = this.props;
-    const element = document.createElement("div");
-    element.classList.add("deck-widget", "deck-widget-save-image");
+    const element = document.createElement('div');
+    element.classList.add('deck-widget', 'deck-widget-save-image');
     if (className) element.classList.add(className);
     if (style) {
       Object.entries(style).map(([key, value]) =>
@@ -82,7 +82,7 @@ export default class SaveImageWidget implements Widget<SaveImageWidgetProps> {
 
   async handleClick() {
     if (this.deck) {
-      this.deck.redraw("true");
+      this.deck.redraw('true');
       const deck_wrapper = this.deck?.getCanvas()?.parentElement;
 
       if (deck_wrapper) {
@@ -91,9 +91,9 @@ export default class SaveImageWidget implements Widget<SaveImageWidgetProps> {
             const img = new Image();
             img.src = dataUrl;
 
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             a.href = dataUrl;
-            a.download = "map.png";
+            a.download = 'map.png';
             a.click();
           })
           .catch(function (error) {

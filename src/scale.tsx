@@ -4,7 +4,7 @@ import {
   WebMercatorViewport,
   Widget,
   WidgetPlacement,
-} from "@deck.gl/core";
+} from '@deck.gl/core';
 import {render} from 'preact';
 
 export type ScaleWidgetProps = {
@@ -18,17 +18,17 @@ export type ScaleWidgetProps = {
 }
 
 export default class ScaleWidget implements Widget<ScaleWidgetProps> {
-  id = "scale";
+  id = 'scale';
   props: ScaleWidgetProps;
-  placement: WidgetPlacement = "bottom-left";
+  placement: WidgetPlacement = 'bottom-left';
   viewId?: string | null = null;
   viewport?: Viewport;
   deck?: Deck;
   element?: HTMLDivElement;
 
   constructor(props: ScaleWidgetProps) {
-    this.id = props.id ?? "scale";
-    this.placement = props.placement ?? "bottom-left";
+    this.id = props.id ?? 'scale';
+    this.placement = props.placement ?? 'bottom-left';
     this.viewId = props.viewId ?? null;
     props.maxWidth = props.maxWidth ?? 300;
     props.useImperial = props.useImperial ?? false;
@@ -47,8 +47,8 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
 
   onAdd({ deck }: { deck: Deck<any> }): HTMLDivElement {
     const { style, className } = this.props;
-    const element = document.createElement("div");
-    element.classList.add("deck-widget", "deck-widget-scale");
+    const element = document.createElement('div');
+    element.classList.add('deck-widget', 'deck-widget-scale');
     if (className) element.classList.add(className);
     if (style) {
       Object.entries(style).map(([key, value]) =>
@@ -72,14 +72,14 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
         const feet = meters * 3.2808399;
         if (feet > 5280) {
           distance = feet / 5280;
-          label = "mi";
+          label = 'mi';
         } else {
           distance = feet;
-          label = "ft";
+          label = 'ft';
         }
       } else {
         distance = meters < 1000 ? meters : meters / 1000;
-        label = meters < 1000 ? "m" : "km";
+        label = meters < 1000 ? 'm' : 'km';
       }
 
       const ratio = this.roundNumber(distance) / distance;

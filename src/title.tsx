@@ -2,7 +2,7 @@ import {
   Deck,
   Widget,
   WidgetPlacement,
-} from "@deck.gl/core";
+} from '@deck.gl/core';
 
 export type TitleWidgetProps = {
   id: string;
@@ -13,15 +13,15 @@ export type TitleWidgetProps = {
 }
 
 export default class TitleWidget implements Widget<TitleWidgetProps> {
-  id = "title";
+  id = 'title';
   props: TitleWidgetProps;
-  placement: WidgetPlacement = "fill";
+  placement: WidgetPlacement = 'fill';
   deck?: Deck;
   element?: HTMLDivElement;
 
   constructor(props: TitleWidgetProps) {
-    this.id = props.id ?? "title";
-    this.placement = props.placement ?? "fill";
+    this.id = props.id ?? 'title';
+    this.placement = props.placement ?? 'fill';
     this.props = {...props};
     this.props.style = this.props.style ?? {};
   }
@@ -31,13 +31,13 @@ export default class TitleWidget implements Widget<TitleWidgetProps> {
   }
 
   onAdd({ deck }: { deck: Deck }): HTMLDivElement {
-    const element = document.createElement("div");
+    const element = document.createElement('div');
 
-    element.classList.add("deck-widget");
+    element.classList.add('deck-widget');
     const {className} = this.props;   
     if (className) element.classList.add(className);
 
-    const titleElement = document.createElement("div");
+    const titleElement = document.createElement('div');
     titleElement.innerText = this.props.title;
 
     const { style } = this.props;

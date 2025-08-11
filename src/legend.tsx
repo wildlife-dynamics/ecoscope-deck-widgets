@@ -2,7 +2,7 @@ import {
   Deck,
   Widget,
   WidgetPlacement,
-} from "@deck.gl/core";
+} from '@deck.gl/core';
 
 export type LegendWidgetProps = {
   id: string;
@@ -14,18 +14,18 @@ export type LegendWidgetProps = {
 }
 
 export default class LegendWidget implements Widget<LegendWidgetProps> {
-  id = "legend";
+  id = 'legend';
   props: LegendWidgetProps;
-  placement: WidgetPlacement = "bottom-right";
+  placement: WidgetPlacement = 'bottom-right';
   deck?: Deck;
   element?: HTMLDivElement;
 
   constructor(props: LegendWidgetProps) {
-    this.id = props.id ?? "legend";
-    this.placement = props.placement ?? "bottom-right";
+    this.id = props.id ?? 'legend';
+    this.placement = props.placement ?? 'bottom-right';
     this.props = {...props};
     this.props.style = this.props.style ?? {};
-    this.props.title = this.props.title ?? "Legend";
+    this.props.title = this.props.title ?? 'Legend';
   }
 
   setProps(props: Partial<LegendWidgetProps>) {
@@ -33,26 +33,26 @@ export default class LegendWidget implements Widget<LegendWidgetProps> {
   }
 
   onAdd({ deck }: { deck: Deck }): HTMLDivElement {
-    const element = document.createElement("div");
-    element.classList.add("deck-widget");
+    const element = document.createElement('div');
+    element.classList.add('deck-widget');
     const {className} = this.props; 
     if (className) element.classList.add(className);
 
-    const titleElement = document.createElement("div");
+    const titleElement = document.createElement('div');
     titleElement.innerText = this.props.title;
-    titleElement.classList.add("legend-title");
+    titleElement.classList.add('legend-title');
 
-    const legendElement = document.createElement("div");
-    legendElement.classList.add("legend-scale");
+    const legendElement = document.createElement('div');
+    legendElement.classList.add('legend-scale');
 
-    const ul = document.createElement("ul");
-    ul.classList.add("legend-labels");
+    const ul = document.createElement('ul');
+    ul.classList.add('legend-labels');
 
     this.props.legend.forEach((color, label) => {
-      const li = document.createElement("li");
-      const span = document.createElement("span");
+      const li = document.createElement('li');
+      const span = document.createElement('span');
 
-      span.style.setProperty("background", color);
+      span.style.setProperty('background', color);
       li.innerText = label;
 
       li.appendChild(span);
