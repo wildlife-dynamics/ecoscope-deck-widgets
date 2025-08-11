@@ -17,18 +17,15 @@ export default class LegendWidget implements Widget<LegendWidgetProps> {
   id = "legend";
   props: LegendWidgetProps;
   placement: WidgetPlacement = "bottom-right";
-
   deck?: Deck;
   element?: HTMLDivElement;
-  className: string = "deck-widget-legend";
 
   constructor(props: LegendWidgetProps) {
-    this.id = props.id || "legend";
-    this.placement = props.placement || "bottom-right";
-    this.className = props.className || "deck-widget-legend";
-    this.props = props;
-    this.props.style = this.props.style || {};
-    this.props.title = this.props.title || "Legend";
+    this.id = props.id ?? "legend";
+    this.placement = props.placement ?? "bottom-right";
+    this.props = {...props};
+    this.props.style = this.props.style ?? {};
+    this.props.title = this.props.title ?? "Legend";
   }
 
   setProps(props: Partial<LegendWidgetProps>) {
@@ -37,9 +34,9 @@ export default class LegendWidget implements Widget<LegendWidgetProps> {
 
   onAdd({ deck }: { deck: Deck }): HTMLDivElement {
     const element = document.createElement("div");
-
     element.classList.add("deck-widget");
-    if (this.className) element.classList.add(this.className);
+    const {className} = this.props; 
+    if (className) element.classList.add(className);
 
     const titleElement = document.createElement("div");
     titleElement.innerText = this.props.title;

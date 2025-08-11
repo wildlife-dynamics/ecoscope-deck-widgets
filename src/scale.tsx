@@ -8,13 +8,13 @@ import {
 import {render} from 'preact';
 
 export type ScaleWidgetProps = {
-  id: string;
+  id?: string;
   style?: Partial<CSSStyleDeclaration>;
   className?: string;
   placement?: WidgetPlacement;
   viewId?: string | null;
-  maxWidth: number;
-  useImperial: boolean;
+  maxWidth?: number;
+  useImperial?: boolean;
 }
 
 export default class ScaleWidget implements Widget<ScaleWidgetProps> {
@@ -25,17 +25,15 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
   viewport?: Viewport;
   deck?: Deck;
   element?: HTMLDivElement;
-  className: string = "deck-widget-scale";
 
   constructor(props: ScaleWidgetProps) {
-    this.id = props.id || "scale";
-    this.placement = props.placement || "bottom-left";
-    this.viewId = props.viewId || null;
-    props.maxWidth = props.maxWidth || 300;
-    props.useImperial = props.useImperial || false;
-    props.style = props.style || {};
-    this.className = props.className || "deck-widget-scale";
-    this.props = props;
+    this.id = props.id ?? "scale";
+    this.placement = props.placement ?? "bottom-left";
+    this.viewId = props.viewId ?? null;
+    props.maxWidth = props.maxWidth ?? 300;
+    props.useImperial = props.useImperial ?? false;
+    props.style = props.style ?? {};
+    this.props = {...props};
   }
 
   setProps(props: Partial<ScaleWidgetProps>) {
@@ -67,7 +65,8 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
   update() {
     if (this.viewport instanceof WebMercatorViewport) {
       const meters = this.viewport.metersPerPixel * this.props.maxWidth;
-      let distance, label;
+      let distance: number
+      let label: string;
 
       if (this.props.useImperial) {
         const feet = meters * 3.2808399;
@@ -80,7 +79,7 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
         }
       } else {
         distance = meters < 1000 ? meters : meters / 1000;
-        label = meters < 1000 ? `m` : `km`;
+        label = meters < 1000 ? "m" : "km";
       }
 
       const ratio = this.roundNumber(distance) / distance;

@@ -5,12 +5,11 @@ import {
   WebMercatorViewport,
   Widget, 
   WidgetPlacement,
-} from "@deck.gl/core";
+} from '@deck.gl/core';
 import {render} from 'preact';
 
 export type NorthArrowWidgetProps = {
   id?: string;
-  style?: Partial<CSSStyleDeclaration>;
   className?: string;
   placement?: WidgetPlacement;
   viewId?: string | null;
@@ -28,7 +27,7 @@ export default class NorthArrowWidget implements Widget<NorthArrowWidgetProps>  
 
   constructor(props: NorthArrowWidgetProps) {
     this.id = props.id ?? 'na-widget';
-    this.placement = props.placement ?? this.placement;
+    this.placement = props.placement ?? 'top-left';
     this.viewId = props.viewId ?? this.viewId;
     this.props = {...props};
   }

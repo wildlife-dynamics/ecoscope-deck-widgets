@@ -7,9 +7,8 @@ import { toPng } from "html-to-image";
 import {render} from 'preact';
 
 interface SaveImageWidgetProps {
-  id: string;
+  id?: string;
   label?: string;
-
   placement?: WidgetPlacement;
   style?: Partial<CSSStyleDeclaration>;
   className?: string;
@@ -24,11 +23,11 @@ export default class SaveImageWidget implements Widget<SaveImageWidgetProps> {
   element?: HTMLDivElement;
 
   constructor(props: SaveImageWidgetProps) {
-    this.id = props.id || "save-image";
-    this.placement = props.placement || "top-right";
-    props.label = props.label || "Save as Image";
-    props.style = props.style || {};
-    this.props = props;
+    this.id = props.id ?? "save-image";
+    this.placement = props.placement ?? "top-right";
+    props.label = props.label ?? "Save as Image";
+    props.style = props.style ?? {};
+    this.props = {...props};
   }
 
   onAdd({ deck }: { deck: Deck<any> }): HTMLDivElement {

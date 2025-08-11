@@ -3,7 +3,6 @@ import {
   Widget,
   WidgetPlacement,
 } from "@deck.gl/core";
-import {render} from "preact";
 
 export type TitleWidgetProps = {
   id: string;
@@ -16,17 +15,15 @@ export type TitleWidgetProps = {
 export default class TitleWidget implements Widget<TitleWidgetProps> {
   id = "title";
   props: TitleWidgetProps;
-  placement: WidgetPlacement = "top-right";
+  placement: WidgetPlacement = "fill";
   deck?: Deck;
   element?: HTMLDivElement;
-  className: string = "deck-widget-title";
 
   constructor(props: TitleWidgetProps) {
-    this.id = props.id || "title";
-    this.placement = props.placement || "top-right";
-    this.className = props.className || "deck-widget-title";
-    this.props = props;
-    this.props.style = this.props.style || {};
+    this.id = props.id ?? "title";
+    this.placement = props.placement ?? "fill";
+    this.props = {...props};
+    this.props.style = this.props.style ?? {};
   }
 
   setProps(props: Partial<TitleWidgetProps>) {
@@ -37,7 +34,8 @@ export default class TitleWidget implements Widget<TitleWidgetProps> {
     const element = document.createElement("div");
 
     element.classList.add("deck-widget");
-    if (this.className) element.classList.add(this.className);
+    const {className} = this.props;   
+    if (className) element.classList.add(className);
 
     const titleElement = document.createElement("div");
     titleElement.innerText = this.props.title;
