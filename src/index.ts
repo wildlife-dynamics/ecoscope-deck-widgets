@@ -5,10 +5,10 @@ import LegendWidget from './legend';
 import SaveImageWidget from './save-image';
 
 export {default as NorthArrowWidget} from './na-widget'
-export {default as TitleWidget} from './na-widget'
-export {default as ScaleWidget} from './na-widget'
-export {default as LegendWidget} from './na-widget'
-export {default as SaveImageWidget} from './na-widget'
+export {default as TitleWidget} from './title'
+export {default as ScaleWidget} from './scale'
+export {default as LegendWidget} from './legend'
+export {default as SaveImageWidget} from './save-image';
 
 const _global = typeof window === 'undefined' ? global : window;
 _global.NorthArrowWidget = {NorthArrowWidget};
