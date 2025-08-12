@@ -10,6 +10,8 @@ export type TitleWidgetProps = {
   placement?: WidgetPlacement;
   style?: Partial<CSSStyleDeclaration>;
   className?: string;
+  placementX?: string;
+  placementY?: string;
 }
 
 export default class TitleWidget implements Widget<TitleWidgetProps> {
@@ -22,8 +24,14 @@ export default class TitleWidget implements Widget<TitleWidgetProps> {
   constructor(props: TitleWidgetProps) {
     this.id = props.id ?? 'title';
     this.placement = props.placement ?? 'fill';
-    this.props = {...props};
-    this.props.style = this.props.style ?? {};
+    this.props.style = {
+      ...props.style ?? {},
+      position: "absolute",
+      transform: "translate(-50%, -50%)",
+      left: props.style.left ?? "50&",
+      top: props.style.right ?? "1%",
+    };
+    this.props = {...props,};
   }
 
   setProps(props: Partial<TitleWidgetProps>) {
