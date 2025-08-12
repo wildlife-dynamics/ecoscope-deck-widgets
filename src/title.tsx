@@ -25,7 +25,10 @@ export default class TitleWidget implements Widget<TitleWidgetProps> {
   constructor(props: TitleWidgetProps) {
     this.id = props.id ?? 'title';
     this.placement = props.placement ?? 'fill';
-    this.props = {...props,};
+    this.props = {
+      className: "deck-widget-title",
+      ...props
+    };
     this.props.style = {
       position: "absolute",
       transform: "translate(-50%, -50%)",

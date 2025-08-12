@@ -32,7 +32,10 @@ export default class LegendWidget implements Widget<LegendWidgetProps> {
   constructor(props: LegendWidgetProps) {
     this.id = props.id ?? 'legend';
     this.placement = props.placement ?? 'bottom-right';
-    this.props = {...props};
+    this.props = {
+      className: "deck-widget-legend",
+      ...props
+    };
     this.props.style = this.props.style ?? {};
     this.props.title = this.props.title ?? 'Legend';
   }
