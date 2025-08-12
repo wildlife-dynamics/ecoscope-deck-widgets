@@ -3,6 +3,7 @@ import {
   Widget,
   WidgetPlacement,
 } from '@deck.gl/core';
+import './style.css'
 
 export type TitleWidgetProps = {
   id: string;
@@ -24,14 +25,14 @@ export default class TitleWidget implements Widget<TitleWidgetProps> {
   constructor(props: TitleWidgetProps) {
     this.id = props.id ?? 'title';
     this.placement = props.placement ?? 'fill';
+    this.props = {...props,};
     this.props.style = {
-      ...props.style ?? {},
       position: "absolute",
       transform: "translate(-50%, -50%)",
-      left: props.style.left ?? "50&",
-      top: props.style.right ?? "1%",
+      left: "50%",
+      top: "1%",
+      ...props.style ?? {},
     };
-    this.props = {...props,};
   }
 
   setProps(props: Partial<TitleWidgetProps>) {

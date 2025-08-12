@@ -3,6 +3,7 @@ import {
   Widget,
   WidgetPlacement,
 } from '@deck.gl/core';
+import './style.css'
 
 export type LegendValue = {
   label: string
