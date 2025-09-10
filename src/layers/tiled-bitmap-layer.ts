@@ -25,7 +25,7 @@ export default class TiledBitmapLayer extends TileLayer<TiledBitmapLayerProps>{
   }
   
   renderSubLayers(props: any) {
-    const { id, data , ...extraProps} = props;
+    const { id, data , ...extraProps } = props;
     const { boundingBox } = props.tile;
     
     return new BitmapLayer(extraProps, {
