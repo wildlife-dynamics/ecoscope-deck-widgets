@@ -1,8 +1,8 @@
 {
   "name": "@ecoscope/ecoscope-deck-widgets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
-  "description": "Custom deck.gl widgets used by ecoscope",
+  "description": "Custom deck.gl components used by ecoscope",
   "main": "index.ts",
   "scripts": {
     "build-webpack": "rm -rf ./dist && mkdir dist && webpack"
