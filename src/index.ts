@@ -1,16 +1,16 @@
-import NorthArrowWidget from './na-widget';
-import TitleWidget from './title';
-import ScaleWidget from './scale';
-import LegendWidget from './legend';
-import SaveImageWidget from './save-image';
-import TiledBitmapLayer from './tiled-bitmap-layer';
+import NorthArrowWidget from './widgets/na-widget';
+import TitleWidget from './widgets/title';
+import ScaleWidget from './widgets/scale';
+import LegendWidget from './widgets/legend';
+import SaveImageWidget from './widgets/save-image';
+import TiledBitmapLayer from './layers/tiled-bitmap-layer';
 
-export {default as NorthArrowWidget} from './na-widget'
-export {default as TitleWidget} from './title'
-export {default as ScaleWidget} from './scale'
-export {default as LegendWidget} from './legend'
-export {default as SaveImageWidget} from './save-image';
-export {default as TiledBitmapLayer} from './tiled-bitmap-layer';
+export {default as NorthArrowWidget} from './widgets/na-widget'
+export {default as TitleWidget} from './widgets/title'
+export {default as ScaleWidget} from './widgets/scale'
+export {default as LegendWidget} from './widgets/legend'
+export {default as SaveImageWidget} from './widgets/save-image';
+export {default as TiledBitmapLayer} from './layers/tiled-bitmap-layer';
 
 const _global = typeof window === 'undefined' ? global : window;
 _global.NorthArrowWidget = {NorthArrowWidget};
