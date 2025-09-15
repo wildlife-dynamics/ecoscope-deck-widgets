@@ -15,6 +15,8 @@ module.exports = [
     target: 'web',
     externals: {
       "@deck.gl/core": "deck",
+      "@deck.gl/layers": "deck",
+      "@deck.gl/geo-layers": "deck",
       "@deck.gl/widgets": "deck",
     },
     devServer: {
