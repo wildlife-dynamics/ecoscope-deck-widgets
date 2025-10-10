@@ -17,39 +17,35 @@ export type ScaleWidgetProps = {
   useImperial?: boolean;
 }
 
-export default class ScaleWidget implements Widget<ScaleWidgetProps> {
+export default class ScaleWidget extends Widget<ScaleWidgetProps> {
   id = 'scale';
-  props: ScaleWidgetProps;
   placement: WidgetPlacement = 'bottom-left';
   viewId?: string | null = null;
   viewport?: Viewport;
-  deck?: Deck;
   element?: HTMLDivElement;
+  className: string = "ecoscope-scale-widget";
 
   constructor(props: ScaleWidgetProps) {
-    this.id = props.id ?? 'scale';
-    this.placement = props.placement ?? 'bottom-left';
-    this.viewId = props.viewId ?? null;
-    props.maxWidth = props.maxWidth ?? 300;
-    props.useImperial = props.useImperial ?? false;
-    props.style = props.style ?? {};
-    this.props = {...props};
+    super(props);
+    this.setProps(props);
   }
 
   setProps(props: Partial<ScaleWidgetProps>) {
-    Object.assign(this.props, props);
+    props.maxWidth = props.maxWidth ?? 300;
+    props.useImperial = props.useImperial ?? false;
+    props.style = props.style ?? {};
+    super.setProps(props);
   }
 
   onViewportChange(viewport: Viewport) {
     this.viewport = viewport;
-    this.update();
+    this.updateHTML();
   }
 
   onAdd({ deck }: { deck: Deck<any> }): HTMLDivElement {
-    const { style, className } = this.props;
+    const { style } = this.props;
     const element = document.createElement('div');
-    element.classList.add('deck-widget', 'deck-widget-scale');
-    if (className) element.classList.add(className);
+    element.classList.add('deck-widget', 'deck-widget-scale', this.className);
     if (style) {
       Object.entries(style).map(([key, value]) =>
         element.style.setProperty(key, value as string),
@@ -58,11 +54,11 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
     this.deck = deck;
     this.element = element;
 
-    this.update();
+    this.updateHTML();
     return element;
   }
 
-  update() {
+  onRenderHTML(rootElement: HTMLElement): void {
     if (this.viewport instanceof WebMercatorViewport) {
       const meters = this.viewport.metersPerPixel * this.props.maxWidth;
       let distance: number
@@ -86,10 +82,6 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
       distance = this.roundNumber(distance);
       const width = `${Math.round(this.props.maxWidth * ratio * (4 / 3))}px`;
 
-      const element = this.element;
-      if (!element) {
-        return;
-      }
       const ui = (
         <div>
           <svg id="test" style={{ width: width, height: "40px" }}>
@@ -139,7 +131,7 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
         </div>
       );
 
-      render(ui, element);
+      render(ui, rootElement);
     }
   }
 
@@ -150,10 +142,5 @@ export default class ScaleWidget implements Widget<ScaleWidgetProps> {
     d = d >= 10 ? 10 : d >= 5 ? 5 : d >= 3 ? 3 : d >= 2 ? 2 : 1;
 
     return pow10 * d;
-  }
-
-  onRemove() {
-    this.deck = undefined;
-    this.element = undefined;
   }
 }
