@@ -9,7 +9,6 @@ import {render} from 'preact';
 
 export type ScaleWidgetProps = {
   id?: string;
-  style?: Partial<CSSStyleDeclaration>;
   placement?: WidgetPlacement;
   viewId?: string | null;
   maxWidth?: number;
@@ -21,7 +20,6 @@ export default class ScaleWidget extends Widget<ScaleWidgetProps> {
   placement: WidgetPlacement = 'bottom-left';
   viewId?: string | null = null;
   viewport?: Viewport;
-  element?: HTMLDivElement;
   className: string = "ecoscope-scale-widget";
 
   constructor(props: ScaleWidgetProps) {
@@ -32,29 +30,12 @@ export default class ScaleWidget extends Widget<ScaleWidgetProps> {
   setProps(props: Partial<ScaleWidgetProps>) {
     props.maxWidth = props.maxWidth ?? 300;
     props.useImperial = props.useImperial ?? false;
-    props.style = props.style ?? {};
     super.setProps(props);
   }
 
   onViewportChange(viewport: Viewport) {
     this.viewport = viewport;
     this.updateHTML();
-  }
-
-  onAdd({ deck }: { deck: Deck<any> }): HTMLDivElement {
-    const { style } = this.props;
-    const element = document.createElement('div');
-    element.classList.add('deck-widget', 'deck-widget-scale', this.className);
-    if (style) {
-      Object.entries(style).map(([key, value]) =>
-        element.style.setProperty(key, value as string),
-      );
-    }
-    this.deck = deck;
-    this.element = element;
-
-    this.updateHTML();
-    return element;
   }
 
   onRenderHTML(rootElement: HTMLElement): void {

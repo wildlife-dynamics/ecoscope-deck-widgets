@@ -18,7 +18,6 @@ export default class NorthArrowWidget extends Widget<NorthArrowWidgetProps>  {
   id = 'na-widget';
   placement: WidgetPlacement = 'top-left';
   viewports: {[id: string]: Viewport} = {};
-  element?: HTMLDivElement;
   className: string = "ecoscope-north-arrow-widget";
 
   constructor(props: NorthArrowWidgetProps) {
@@ -30,7 +29,6 @@ export default class NorthArrowWidget extends Widget<NorthArrowWidgetProps>  {
     const element = document.createElement('div');
     element.classList.add('deck-widget', this.className);
     this.deck = deck;
-    this.element = element;
     this.updateHTML();
     return element;
   }
