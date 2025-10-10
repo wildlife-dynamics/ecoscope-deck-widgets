@@ -17,38 +17,24 @@ export type LegendWidgetProps = {
   id: string;
   title: string;
   legend: Legend;
-  placement?: WidgetPlacement;
-  style?: Partial<CSSStyleDeclaration>;
-  className?: string;
+  placement: WidgetPlacement;
 }
 
-export default class LegendWidget implements Widget<LegendWidgetProps> {
+export default class LegendWidget extends Widget<LegendWidgetProps> {
   id = 'legend';
-  props: LegendWidgetProps;
   placement: WidgetPlacement = 'bottom-right';
-  deck?: Deck;
-  element?: HTMLDivElement;
+  className: string = "ecoscope-legend-widget";
 
   constructor(props: LegendWidgetProps) {
-    this.id = props.id ?? 'legend';
-    this.placement = props.placement ?? 'bottom-right';
-    this.props = {
-      className: "deck-widget-legend",
-      ...props
-    };
-    this.props.style = this.props.style ?? {};
-    this.props.title = this.props.title ?? 'Legend';
+    super(props);
+    this.setProps(props);
   }
 
-  setProps(props: Partial<LegendWidgetProps>) {
-    Object.assign(this.props, props);
-  }
+  onRenderHTML(rootElement: HTMLElement): void {}
 
   onAdd({ deck }: { deck: Deck }): HTMLDivElement {
     const element = document.createElement('div');
     element.classList.add('deck-widget');
-    const {className} = this.props; 
-    if (className) element.classList.add(className);
 
     const titleElement = document.createElement('div');
     titleElement.innerText = this.props.title;
@@ -72,23 +58,9 @@ export default class LegendWidget implements Widget<LegendWidgetProps> {
     });
 
     legendElement.appendChild(ul);
-
-    const { style } = this.props;
-    if (style) {
-      Object.entries(style).map(([key, value]) => {
-        element.style.setProperty(key, value as string);
-      });
-    }
     element.appendChild(titleElement);
     element.appendChild(legendElement);
 
-    this.deck = deck;
-    this.element = element;
     return element;
-  }
-
-  onRemove() {
-    this.deck = undefined;
-    this.element = undefined;
   }
 }
