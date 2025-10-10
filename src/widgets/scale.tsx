@@ -10,7 +10,6 @@ import {render} from 'preact';
 export type ScaleWidgetProps = {
   id?: string;
   style?: Partial<CSSStyleDeclaration>;
-  className?: string;
   placement?: WidgetPlacement;
   viewId?: string | null;
   maxWidth?: number;
