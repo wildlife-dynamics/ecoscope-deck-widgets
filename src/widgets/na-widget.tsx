@@ -11,6 +11,7 @@ export type NorthArrowWidgetProps = {
   id?: string;
   placement?: WidgetPlacement;
   viewId?: string | null;
+  style?: Partial<CSSStyleDeclaration>;
 };
 
 
@@ -28,6 +29,9 @@ export default class NorthArrowWidget extends Widget<NorthArrowWidgetProps>  {
   onAdd({deck}) {    
     const element = document.createElement('div');
     element.classList.add('deck-widget', this.className);
+    Object.entries(this.props.style).map(([key, value]) => {
+        element.style.setProperty(key, value as string);
+    });
     this.deck = deck;
     this.updateHTML();
     return element;

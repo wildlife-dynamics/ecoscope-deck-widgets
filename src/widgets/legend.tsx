@@ -18,6 +18,7 @@ export type LegendWidgetProps = {
   title: string;
   legend: Legend;
   placement: WidgetPlacement;
+  style?: Partial<CSSStyleDeclaration>;
 }
 
 export default class LegendWidget extends Widget<LegendWidgetProps> {
@@ -34,7 +35,11 @@ export default class LegendWidget extends Widget<LegendWidgetProps> {
 
   onAdd({ deck }: { deck: Deck }): HTMLDivElement {
     const element = document.createElement('div');
-    element.classList.add('deck-widget');
+    element.classList.add('deck-widget', this.className);
+    Object.entries(this.props.style).map(([key, value]) => {
+      element.style.setProperty(key, value as string);
+    });
+  
 
     const titleElement = document.createElement('div');
     titleElement.innerText = this.props.title;

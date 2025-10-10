@@ -1,4 +1,4 @@
-.deck-widget.deck-widget-title {
+.deck-widget.ecoscope-title-widget {
   font-size: 26px;
   font-style: normal;
   font-family: Helvetica;
@@ -15,7 +15,7 @@
   text-align: center;
 }
 
-.deck-widget.deck-widget-legend {
+.deck-widget.ecoscope-legend-widget {
   background-color: rgb(255, 255, 255);
   border-color: rgb(0, 0, 0);
   border-style: solid;
