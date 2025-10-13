@@ -5,10 +5,15 @@ import {
 } from '@deck.gl/core';
 import './style.css'
 
+export type LegendValue = {
+  label: string;
+  color: string;
+}
+
 export type LegendWidgetProps = {
   id: string;
   title: string;
-  legend: Record<string, string>;
+  legendValues: Array<LegendValue>;
   placement: WidgetPlacement;
   style?: Partial<CSSStyleDeclaration>;
 }
@@ -43,7 +48,7 @@ export default class LegendWidget extends Widget<LegendWidgetProps> {
     const ul = document.createElement('ul');
     ul.classList.add('legend-labels');
 
-    Object.entries(this.props.legend).forEach(([label, color])=> {
+    this.props.legendValues.forEach(({label, color})=> {
       const li = document.createElement('li');
       const span = document.createElement('span');
 
