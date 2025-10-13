@@ -1,5 +1,4 @@
 import {
-  Deck,
   _GlobeViewport,
   Viewport,
   WebMercatorViewport,
@@ -10,66 +9,53 @@ import {render} from 'preact';
 
 export type NorthArrowWidgetProps = {
   id?: string;
-  className?: string;
   placement?: WidgetPlacement;
   viewId?: string | null;
+  style?: Partial<CSSStyleDeclaration>;
 };
 
 
-export default class NorthArrowWidget implements Widget<NorthArrowWidgetProps>  {
+export default class NorthArrowWidget extends Widget<NorthArrowWidgetProps>  {
   id = 'na-widget';
-  props: NorthArrowWidgetProps;
   placement: WidgetPlacement = 'top-left';
-  viewId?: string | null = null;
-  deck?: Deck<any>;
   viewports: {[id: string]: Viewport} = {};
-  element?: HTMLDivElement;
+  className: string = "ecoscope-north-arrow-widget";
 
   constructor(props: NorthArrowWidgetProps) {
-    this.id = props.id ?? 'na-widget';
-    this.placement = props.placement ?? 'top-left';
-    this.viewId = props.viewId ?? this.viewId;
-    this.props = {...props};
+    super(props);
+    this.setProps(props);
   }
 
-  onAdd({deck}) { 
-    const {className} = this.props;   
+  onAdd({deck}) {    
     const element = document.createElement('div');
-    element.classList.add('deck-widget', 'na-widget');
-    if (className) element.classList.add(className);
+    element.classList.add('deck-widget', this.className);
+    Object.entries(this.props.style).map(([key, value]) => {
+        element.style.setProperty(key, value as string);
+    });
     this.deck = deck;
-    this.element = element;
-    this.update();
+    this.updateHTML();
     return element;
   }
 
   setProps(props: Partial<NorthArrowWidgetProps>) {
     this.placement = props.placement ?? this.placement;
     this.viewId = props.viewId ?? this.viewId;
-    Object.assign(this.props, props);
-    this.update();
+    super.setProps(props);
   }
 
   onRedraw() {    
-    this.update();
+    this.updateHTML();
   }
 
   onViewportChange(viewport: Viewport) {    
     // no need to update if viewport is the same
     if (!viewport.equals(this.viewports[viewport.id])) {
       this.viewports[viewport.id] = viewport;
-      this.update();
+      this.updateHTML();
     }
   }
 
-
-  private update() {    
-
-    const element = this.element;
-    if (!element) {
-      return;
-    }
-
+  onRenderHTML(rootElement: HTMLElement): void {
     const viewId = this.viewId || Object.values(this.viewports)[0]?.id || 'default-view';
     const viewport = this.viewports[viewId];
 
@@ -89,7 +75,7 @@ export default class NorthArrowWidget implements Widget<NorthArrowWidgetProps>  
         </svg>
       </div>
     );
-    render(ui, element);
+    render(ui, rootElement);
   }
 
 
