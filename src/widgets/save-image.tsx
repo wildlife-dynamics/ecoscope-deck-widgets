@@ -16,7 +16,7 @@ export default class SaveImageWidget extends Widget<SaveImageWidgetProps> {
   id = 'save-image';
   placement: WidgetPlacement = 'top-right';
   viewId?: string | null = null;
-  className: string = "ecoscope-scale-widget";
+  className: string = "deck-widget-save-image";
 
   constructor(props: SaveImageWidgetProps) {
     props.label = props.label ?? 'Save as Image';
