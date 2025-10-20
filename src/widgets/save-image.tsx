@@ -16,7 +16,7 @@ export default class SaveImageWidget extends Widget<SaveImageWidgetProps> {
   id = 'save-image';
   placement: WidgetPlacement = 'top-right';
   viewId?: string | null = null;
-  className: string = "ecoscope-scale-widget";
+  className: string = "deck-widget-save-image";
 
   constructor(props: SaveImageWidgetProps) {
     props.label = props.label ?? 'Save as Image';
@@ -68,14 +68,19 @@ export default class SaveImageWidget extends Widget<SaveImageWidgetProps> {
       const deck_wrapper = this.deck?.getCanvas()?.parentElement;
 
       if (deck_wrapper) {
-        toPng(deck_wrapper)
+        const filter = (node: HTMLElement) => {
+          const exclusionClasses = ["deck-widget-save-image"];
+          return !exclusionClasses.some((classname) => node.classList?.contains(classname));
+        }
+
+        toPng(deck_wrapper, {filter: filter})
           .then(function (dataUrl) {
             const img = new Image();
             img.src = dataUrl;
 
-            const a = document.createElement('a');
+            const a = document.createElement("a");
             a.href = dataUrl;
-            a.download = 'map.png';
+            a.download = "map.png";
             a.click();
           })
           .catch(function (error) {
