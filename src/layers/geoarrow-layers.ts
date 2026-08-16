@@ -96,9 +96,12 @@ function buildBatchProps(
 }
 
 /**
- * Always instantiate upstream layers directly: N per batch for arrow.Table,
- * one for a single arrow.RecordBatch. Returns null when `data` is neither
- * (e.g. URL still loading) so the caller can fall back to super.renderLayers.
+ * An Arrow table contains one or more record batches. We render a single GeoArrow layer for
+ * each record batch.
+ *
+ * Return null while `data` is still a URL/loading placeholder because the base implementation would
+ * access `data.schema.fields`, throw, and cause Deck to invoke its `onError`
+ * callback.
  */
 function renderBatchedData(
   LayerClass: new (p: Record<string, unknown>) => Layer,
@@ -111,13 +114,14 @@ function renderBatchedData(
   if (isRecordBatch(data)) {
     return new LayerClass(buildBatchProps(layer, data, 0));
   }
+
   return null;
 }
 
-// Thin subclasses that (a) inject our GeoParquet loader via defaultProps 
-// and (b) re-emit one upstream layer per RecordBatch,
-// applying bare-string column refs as vectorized arrow attributes on the way
-// through, allowing definition of these layers via json / pydeck
+/**
+ * These wrappers let Deck JSON/pydeck definitions load GeoParquet URLs and
+ * reference Arrow columns by name in layer accessors.
+ */
 
 export class GeoArrowPathLayer<ExtraProps extends object = object> extends UpstreamGeoArrowPathLayer<ExtraProps> {
   static layerName = 'GeoArrowPathLayer';
@@ -130,10 +134,12 @@ export class GeoArrowPathLayer<ExtraProps extends object = object> extends Upstr
   };
 
   renderLayers(): RenderLayersReturn {
-    return renderBatchedData(
-      UpstreamGeoArrowPathLayer as unknown as new (p: Record<string, unknown>) => Layer,
-      this as unknown as LayerLike,
-    ) ?? super.renderLayers();
+    return (
+      renderBatchedData(
+        UpstreamGeoArrowPathLayer as unknown as new (p: Record<string, unknown>) => Layer,
+        this as unknown as LayerLike,
+      ) ?? null
+    );
   }
 }
 
@@ -145,10 +151,12 @@ export class GeoArrowScatterplotLayer<ExtraProps extends object = object> extend
   };
 
   renderLayers(): RenderLayersReturn {
-    return renderBatchedData(
-      UpstreamGeoArrowScatterplotLayer as unknown as new (p: Record<string, unknown>) => Layer,
-      this as unknown as LayerLike,
-    ) ?? super.renderLayers();
+    return (
+      renderBatchedData(
+        UpstreamGeoArrowScatterplotLayer as unknown as new (p: Record<string, unknown>) => Layer,
+        this as unknown as LayerLike,
+      ) ?? null
+    );
   }
 }
 
@@ -160,9 +168,11 @@ export class GeoArrowPolygonLayer<ExtraProps extends object = object> extends Up
   };
 
   renderLayers(): RenderLayersReturn {
-    return renderBatchedData(
-      UpstreamGeoArrowPolygonLayer as unknown as new (p: Record<string, unknown>) => Layer,
-      this as unknown as LayerLike,
-    ) ?? super.renderLayers();
+    return (
+      renderBatchedData(
+        UpstreamGeoArrowPolygonLayer as unknown as new (p: Record<string, unknown>) => Layer,
+        this as unknown as LayerLike,
+      ) ?? null
+    );
   }
 }
